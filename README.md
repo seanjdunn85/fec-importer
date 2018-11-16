@@ -8,6 +8,7 @@ Install Neo4j (https://neo4j.com/download/) and create a database named "fec". N
 
 Rename the file `fec.config.local.json` to `fec.config.json` and change the Neo4j credentials and port for your environment.
 
+I encourage you to check out the included pdf, MiningFECData.pdf authored by Christopher Schnaars at USA TODAY. He provides a good breakdown of the peculiarities and practical considerations you'll run into with this dataset.
 
 ### Python Dependecies
 Install these guys:
