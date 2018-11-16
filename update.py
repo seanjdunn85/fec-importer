@@ -1,19 +1,9 @@
 import wget, os, zipfile, datetime, sys, json
-from neo4j.v1 import GraphDatabase
 from FECGraphClient import FECGraphClient
-from FECResourceDownloader import FECResourceDownloader
 from termcolor import colored
 from shutil import copyfile
 
-
-
-
-
-print sys.argv
-
-update = '--update' in sys.argv or '-U ' in  sys.argv
-print update 
-#store the zips in ./zips
+update = '--update-current-year' in sys.argv or '-U ' in  sys.argv
 
 # Get the current year so we can update the current election cycle
 current_year = datetime.date.today().strftime("%Y")[2:]
@@ -27,20 +17,22 @@ fix ={
 
 class FECDataManager(object):
 
-	
-	
 	#the years that we're looking to import
 	years = ['04','06','08','10','12','14','16','18']
 
-	#filetypes need to be in done in a particular sequence, NOT alphabetical
+	#filetypes need to be in done in a particular sequence, because the later dumps depend on the earlier ones. Do NOT execute imports alphabetically.
 	filetypes = ['cn','cm','ccl','oth','pas2','indiv','oppexp']
-
+	
 	# filenames = {'indiv':'itcont'}
 	filenames = {'cn':'cn','ccl':'ccl','pas2':'itpas2','indiv':'itcont','oth':'itoth','oppexp':'oppexp','cm':'cm'}
+	
 	# whether the file has edges
 	has_edge_import = {'ccl','indiv','oth','pas2'}
-	# whether the file has node imports
+	
+	# whether the file has nodes
 	has_node_import = {'cm','cn','indiv'}
+	
+#	store the zips in ./zips
 	zip_directory = os.path.join(os.curdir,'zips')
 
 	"""docstring for FECDataManager"""
