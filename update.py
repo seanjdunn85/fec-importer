@@ -45,7 +45,8 @@ class FECDataManager(object):
 			self.config = json.load(f)
 			print self.config
 			self.neoClient = FECGraphClient(self.config['neo4j']['port'],self.config['neo4j']['username'], self.config['neo4j']['password'])
-		# ensure that the schema has the proper constraints
+
+		# Ensure that the schema has the proper constraints
 		with open('schema/fec.cypher') as schemaLines:
 			lines =  schemaLines.readlines()
 			for line in lines:
@@ -138,16 +139,7 @@ class FECDataManager(object):
 
 				with open(temp_path) as file:
 					for line in file:
-						# print line
 						if line[:9] == "C00622357":
-							# print line
-							# print bad_string
-							# basl = (line == bad_string)
-							# print basl
-							# print type(basl)
-							# print type(bad_string)
-							# print type(line)
-							# print colored(bad_string,'red')
 							print 'replacing...'
 							extracted_and_fixed_handle.write(replace_string)
 						else:
