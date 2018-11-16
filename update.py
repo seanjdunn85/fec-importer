@@ -95,7 +95,7 @@ class FECDataManager(object):
 						os.remove(zip_path)
 
 					print zip_path + ' either does not exist on disk or is set to update. Downloading...'
-					url = 'https://cg-519a459a-0ea3-42c2-b7bc-fa1143481f74.s3-us-gov-west-1.amazonaws.com/bulk-downloads/20'+year+'/'+zipname
+					url = url_prefix + '20'+year+'/'+zipname
 
 					wget.download(
 						url,
