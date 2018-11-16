@@ -1,0 +1,14 @@
+
+**FEC Campaign Finance**
+
+Consists of the following:
+
+```Individual contributions ```
+
+Individuals contributions are made by either people, organizations, or PACs. Only PACs are easily identifiable by a serial number. The people and organizations are identified only by text names, which of course are not unique and also are not normalized. Including a person's middle initial initial or title/honorific such as Mr,Mrs, Dr, Esquire, PhD, etc for example, would make a ``GROUP BY `name` `` SQL query fail to aggregate donations properly. The reason I mention this in detail up front is because some of the personal donors that fund committees have donated truly shocking amounts of money. 
+
+For example Thomas Steyer donated \$163,837,644 under "STEYER, THOMAS F." and another \$5,431,007 under "STEYER, THOMAS". To complicate things much further, families are among the top donors. George Soros, for example, donated $26,223,011 during one election cycle according to an unnormalized name query, while it appears several members of his family also made the list of the top 1,000 donors during that election cycle, under different name permutations.
+
+``COMMITTEES``
+
+Committees are essentially Political Action Comittees. The tricky part

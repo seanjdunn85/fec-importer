@@ -1,0 +1,13 @@
+{
+	"neo4j":{
+		"port":"11002",
+		"username":"neo4j",
+		"password":"enter password here"
+	},
+	"mysql":{
+		"username":"username",
+		"password":"password",
+		"database":"database",
+		"port":"port"
+	}
+}
