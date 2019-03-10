@@ -3,20 +3,6 @@ from FECGraphClient import FECGraphClient
 from termcolor import colored
 from shutil import copyfile
 
-update = '--update-current-year' in sys.argv or '-U' in  sys.argv
-verbose = '--verbose' in sys.argv or '-V' in  sys.argv
-
-
-fix ={
-	"C00622357|\"D'MAC KINGDOM\" THE GOOD NEWS OF HEALING & UNIFYING OUR GREAT NATION|KAREN D MACK|7211 CRANE AVE APT# 114||JACKSONVILLE|FL|32216|P|P||Q|||":'C00622357|\"D\'MAC KINGDOM\" THE GOOD NEWS OF HEALING & UNIFYING OUR GREAT NATION|KAREN D MACK|7211 CRANE AVE APT# 114||JACKSONVILLE|FL|32216|P|P||Q|||'
-}
-
-def verboseColoredPrint(message, color):
-	if verbose:
-		colored(message, color)
-	else:
-		return None
-
 
 class FECDataManager(object):
 
@@ -90,9 +76,6 @@ class FECDataManager(object):
 				# 
 				extract_dir = os.path.join(self.zip_directory , filetype)
 
-				if not os.path.isdir(extract_dir):
-					os.mkdir(extract_dir)
-
 				if os.path.isfile(zip_path) and not (self.update == True and year == self.current_year):
 					print zip_path + ' already exists on disk'
 					extract_name = self.filenames[filetype] + '-' + year + '.txt' 
@@ -156,7 +139,7 @@ class FECDataManager(object):
 							extracted_and_fixed_handle.write(replace_string)
 						else:
 							extracted_and_fixed_handle.write(line)
-
+                            
 				if self.hasNodeImport(filetype):
 					cypherFilePath = './import-cyphers/'+ self.filenames[filetype] + '-import-cypher'
 					with open(cypherFilePath, 'r') as myfile:
@@ -202,9 +185,3 @@ class FECDataManager(object):
 							pass
 						finally:
 							pass
-
-	def interpolateCypher(cypher, params):
-		return cypher % params
-
-dataManager = FECDataManager(update)
-dataManager.sync()

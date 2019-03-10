@@ -3,20 +3,6 @@ from FECGraphClient import FECGraphClient
 from termcolor import colored
 from shutil import copyfile
 
-update = '--update-current-year' in sys.argv or '-U' in  sys.argv
-verbose = '--verbose' in sys.argv or '-V' in  sys.argv
-
-
-fix ={
-	"C00622357|\"D'MAC KINGDOM\" THE GOOD NEWS OF HEALING & UNIFYING OUR GREAT NATION|KAREN D MACK|7211 CRANE AVE APT# 114||JACKSONVILLE|FL|32216|P|P||Q|||":'C00622357|\"D\'MAC KINGDOM\" THE GOOD NEWS OF HEALING & UNIFYING OUR GREAT NATION|KAREN D MACK|7211 CRANE AVE APT# 114||JACKSONVILLE|FL|32216|P|P||Q|||'
-}
-
-def verboseColoredPrint(message, color):
-	if verbose:
-		colored(message, color)
-	else:
-		return None
-
 
 class FECDataManager(object):
 
@@ -156,7 +142,7 @@ class FECDataManager(object):
 							extracted_and_fixed_handle.write(replace_string)
 						else:
 							extracted_and_fixed_handle.write(line)
-
+                            
 				if self.hasNodeImport(filetype):
 					cypherFilePath = './import-cyphers/'+ self.filenames[filetype] + '-import-cypher'
 					with open(cypherFilePath, 'r') as myfile:
@@ -202,9 +188,3 @@ class FECDataManager(object):
 							pass
 						finally:
 							pass
-
-	def interpolateCypher(cypher, params):
-		return cypher % params
-
-dataManager = FECDataManager(update)
-dataManager.sync()
