@@ -26,10 +26,10 @@ class FECDisclosureObject(object):
 
         super(FECDisclosureObject, self).__init__()
         
-     	with open('fec.config.json') as f:
-			self.config = json.load(f)
-			# print self.config
-			self.neoClient = FECGraphClient(self.config['neo4j']['port'],self.config['neo4j']['username'], self.config['neo4j']['password'])
+        with open('fec.config.json') as f:
+            self.config = json.load(f)
+            # print self.config
+            self.neoClient = FECGraphClient(self.config['neo4j']['port'],self.config['neo4j']['username'], self.config['neo4j']['password'])
 
 
         self.election_year = election_year
@@ -55,14 +55,14 @@ class FECDisclosureObject(object):
     def _ensure_zip_dir(self):
         self.zip_directory = os.path.join(os.curdir,'zips')
         if not os.path.isdir(self.zip_directory):
-			os.mkdir(self.zip_directory)
+            os.mkdir(self.zip_directory)
         return True
 
     # Make sure our directory structure has ./zips/{disclosure_type}/
     def _ensure_extract_dir(self):
         self.extract_dir = os.path.join(self.zip_directory , self.disclosure_type)
         if not os.path.isdir(self.extract_dir):
-			os.mkdir(self.extract_dir)
+            os.mkdir(self.extract_dir)
         return True
 
     # Main entry point for the object. Download, extract, sanitize, and load the disclosure
@@ -95,10 +95,10 @@ class FECDisclosureObject(object):
     # Prepend the appropriate headers, located in ./headers/ to the beginning of the file 
     def _apply_headers(self.input_path, output_path):
         headers = open(os.path.join(os.curdir,'headers', self.filenames[filetype] + '-headers.txt'),'r').readline() 
-		extract_handle = open(self.output_path, 'w')
-		extract_handle.write(headers)
+        extract_handle = open(self.output_path, 'w')
+        extract_handle.write(headers)
         extract_handle.writelines(open(os.path.join(extract_dir,member_name)))
-		extract_handle.close()
+        extract_handle.close()
     
     def _extracted_disclosure_exists():
         os.isfile(self.extract_path)
