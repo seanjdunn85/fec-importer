@@ -3,6 +3,7 @@ from FECGraphClient import FECGraphClient
 from termcolor import colored
 from shutil import copyfile
 
+
 update = '--update-current-year' in sys.argv or '-U' in sys.argv
 verbose = '--verbose' in sys.argv or '-V' in sys.argv
 
@@ -23,10 +24,12 @@ class FECDataManager(object):
     # the years that we're looking to import
     years = ['04', '06', '08', '10', '12', '14', '16', '18']
 
-    # filetypes need to be in done in a particular sequence, because the later dumps depend on the earlier ones. Do NOT execute imports alphabetically.
+    # Filetypes need to be in done in a particular sequence
+    # The later dumps depend on the earlier ones. Do NOT execute imports alphabetically.
     filetypes = ['cn', 'cm', 'ccl', 'oth', 'pas2', 'indiv', 'oppexp']
 
     # filenames = {'indiv':'itcont'}
+    # these is a mapping between the filetype and filename. `indiv` file types correspond to `itcont` filenames
     filenames = {'cn': 'cn', 'ccl': 'ccl', 'pas2': 'itpas2', 'indiv': 'itcont', 'oth': 'itoth', 'oppexp': 'oppexp',
                  'cm': 'cm'}
 
@@ -61,8 +64,8 @@ class FECDataManager(object):
         with open('schema/fec.cypher') as schemaLines:
             lines = schemaLines.readlines()
             for line in lines:
-                result = self.neoClient.graph.cypher.execute(line)
-                print result
+                ##result = self.neoClient.graph.evaluate(line)
+                print("""hello world""")
 
     # boolean true update the election cycle. Can only return true if the election year
     # being processed is the most recent.
@@ -80,9 +83,9 @@ class FECDataManager(object):
     # Main entry point. Begins the download and entry process into RDMS and Graph DB.
     def sync(self):
         for year in self.years:
-            print year
+            print(year)
             for filetype in self.filetypes:
-                print filetype
+                print(filetype)
                 # see if the file is
                 # ./zips/indiv-16.zip
                 zipname = filetype + year + '.zip'
@@ -96,7 +99,7 @@ class FECDataManager(object):
                     os.mkdir(extract_dir)
 
                 if os.path.isfile(zip_path) and not (self.update == True and year == self.current_year):
-                    print zip_path + ' already exists on disk'
+                    print(zip_path + ' already exists on disk')
                     extract_name = self.filenames[filetype] + '-' + year + '.txt'
                     # ./zips/indiv/itcont-16.txt
                     extract_path = os.path.join(extract_dir, extract_name)
@@ -107,7 +110,7 @@ class FECDataManager(object):
                     if os.path.isfile(zip_path):
                         os.remove(zip_path)
 
-                    print zip_path + ' either does not exist on disk or is set to update. Downloading...'
+                    print(zip_path + ' either does not exist on disk or is set to update. Downloading...')
                     url = self.config['url_prefix'] + '20' + year + '/' + zipname
 
                     # Download the file into the proper directors
@@ -152,7 +155,7 @@ class FECDataManager(object):
                 with open(temp_path) as file:
                     for line in file:
                         if line[:9] == "C00622357":
-                            print 'replacing...'
+                            print('replacing...')
                             extracted_and_fixed_handle.write(replace_string)
                         else:
                             extracted_and_fixed_handle.write(line)
@@ -166,7 +169,7 @@ class FECDataManager(object):
                         try:
                             result = self.neoClient.graph.cypher.execute(cypher_query)
                         except Exception as e:
-                            print colored(e, 'red')
+                            print(colored(e, 'red'))
                         else:
                             pass
                         finally:
@@ -181,7 +184,7 @@ class FECDataManager(object):
                         try:
                             result = self.neoClient.graph.cypher.execute(cypher_query)
                         except Exception as e:
-                            print colored(e, 'red')
+                            print(colored(e, 'red'))
                         else:
                             pass
                         finally:
@@ -196,7 +199,7 @@ class FECDataManager(object):
                         try:
                             result = self.neoClient.graph.cypher.execute(cypher_query)
                         except Exception as e:
-                            print colored(e, 'red')
+                            print(colored(e, 'red'))
                         else:
                             pass
                         finally:
