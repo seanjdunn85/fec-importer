@@ -2,6 +2,9 @@ import wget, os, zipfile, datetime, sys, json
 from FECGraphClient import FECGraphClient
 from termcolor import colored
 from shutil import copyfile
+from dotenv import load_dotenv
+load_dotenv()
+
 
 
 update = '--update-current-year' in sys.argv or '-U' in sys.argv
@@ -40,7 +43,8 @@ class FECDataManager(object):
     has_node_import = {'cm', 'cn', 'indiv'}
 
     # store the zips in ./zips
-    zip_directory = os.path.join(os.curdir, 'zips')
+    zip_directory = os.getenv("DATA_STORAGE_DIR")
+    # zip_directory = os.path.join(os.curdir, 'zips')
 
     """docstring for FECDataManager"""
 
