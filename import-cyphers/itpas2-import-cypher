@@ -1,4 +1,4 @@
-USING PERIODIC COMMIT LOAD CSV WITH HEADERS FROM 'file:////fec/%s/%s-%s.txt' AS line FIELDTERMINATOR '|' CREATE (:Committee2CandidateContribution 
+USING PERIODIC COMMIT LOAD CSV WITH HEADERS FROM 'file:////%s/%s-%s.txt' AS line FIELDTERMINATOR '|' CREATE (:Committee2CandidateContribution
 { 
 CMTE_ID:line.CMTE_ID,
 AMNDT_IND:line.AMNDT_IND,

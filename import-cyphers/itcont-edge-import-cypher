@@ -1,8 +1,8 @@
-USING PERIODIC COMMIT LOAD CSV WITH HEADERS FROM 'file:///fec/%s/%s-%s.txt' AS line FIELDTERMINATOR '|' 
-MATCH (indiv1:IndivContrib{SUB_ID:toInt(line.SUB_ID)})
+USING PERIODIC COMMIT LOAD CSV WITH HEADERS FROM 'file:///%s/%s-%s.txt' AS line FIELDTERMINATOR '|'
+MATCH (indiv1:IndivContrib{SUB_ID:toInteger(line.SUB_ID)})
 MATCH (cmte1:Committee{CMTE_ID:line.CMTE_ID})
 MERGE
-(indiv1)-[ic:INDIVIDUAL_CONTRIBUTION{SUB_ID:toInt(line.SUB_ID)}]->(cmte1)
+(indiv1)-[ic:INDIVIDUAL_CONTRIBUTION{SUB_ID:toInteger(line.SUB_ID)}]->(cmte1)
 
 ON CREATE SET
 ic.CMTE_ID = line.CMTE_ID,
@@ -22,7 +22,7 @@ ic.TRANSACTION_DT = line.TRANSACTION_DT,
 ic.TRANSACTION_AMT = toFloat(line.TRANSACTION_AMT),
 ic.OTHER_ID = line.OTHER_ID,
 ic.TRAN_ID = line.TRAN_ID,
-ic.FILE_NUM = toInt(line.FILE_NUM),
+ic.FILE_NUM = toInteger(line.FILE_NUM),
 ic.MEMO_CD = line.MEMO_CD,
 ic.MEMO_TEXT = line.MEMO_TEXT,
 ic.SUB_ID = toInteger(line.SUB_ID)

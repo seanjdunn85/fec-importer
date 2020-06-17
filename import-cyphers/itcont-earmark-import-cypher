@@ -1,5 +1,5 @@
-USING PERIODIC COMMIT LOAD CSV WITH HEADERS FROM 'file:///fec/%s/%s-%s.txt' AS line FIELDTERMINATOR '|' 
-MATCH (cmte1:Committee{CMTE_ID:line.OTHER_ID}), (indiv1:IndivContrib{SUB_ID:toInt(line.SUB_ID)})
+USING PERIODIC COMMIT LOAD CSV WITH HEADERS FROM 'file:///%s/%s-%s.txt' AS line FIELDTERMINATOR '|'
+MATCH (cmte1:Committee{CMTE_ID:line.OTHER_ID}), (indiv1:IndivContrib{SUB_ID:toInteger(line.SUB_ID)})
 
 CREATE (indiv1)-[:EARMARKED_FOR{
 	CMTE_ID:line.CMTE_ID,
@@ -19,8 +19,8 @@ CREATE (indiv1)-[:EARMARKED_FOR{
 	TRANSACTION_AMT:toFloat(line.TRANSACTION_AMT),
 	OTHER_ID:line.OTHER_ID,
 	TRAN_ID:line.TRAN_ID,
-	FILE_NUM:toInt(line.FILE_NUM),
+	FILE_NUM:toInteger(line.FILE_NUM),
 	MEMO_CD:line.MEMO_CD,
 	MEMO_TEXT:line.MEMO_TEXT,
-	SUB_ID:toInt(line.SUB_ID)
+	SUB_ID:toInteger(line.SUB_ID)
 }]->(cmte1);
